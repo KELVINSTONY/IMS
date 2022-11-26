@@ -109,7 +109,7 @@ class ProductController extends Controller
 
         // $a['user_id']=auth()->id();
         $a = Product::find($id);
-
+        // m,nmmn
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully.');
     }
