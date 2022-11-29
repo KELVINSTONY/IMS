@@ -4,7 +4,11 @@
         <div class="col-md-8">
             <div class="card">
                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mtu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php echo e($mtu); ?>
+
+
+
+                <?php echo e($mtu->name); ?>
+
 
 
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

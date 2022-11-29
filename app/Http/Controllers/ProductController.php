@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\User;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::OrderBy('fullName', 'desc')->paginate(10);
+
+        $products = Product::OrderBy('fullName', 'desc');
         return view('products.index')->with('products', $products);
     }
 
@@ -38,16 +40,27 @@ class ProductController extends Controller
     public function store()
     {
         $a = request()->validate([
-            'fullName' => 'required',
-            'emailAddress' => 'required',
+            'fullName' => 'required|unique:products,fullName,except,id',
+            'emailAddress' => 'required|unique:products,emailAddress,except,id',
             'subject' => 'required',
             'message' => 'required',
+
         ]);
 
 
         $a['user_id'] = auth()->id();
         Product::create($a);
+        $categories = Category::where(['id' => 0])->get();
+        $categor = "<option value='' selected disabled>Select</option>";
 
+        foreach ($categories as $category) {
+            $categor .= "<option value='" . $category->id . "'>" . $category->name . "</option>";
+            $sub_categories = Category::where(['id' => $category->id])->get();
+            foreach ($sub_categories as $sub_cat) {
+                $categor .= "<option value='" . $sub_cat->id . "'>&nbsp;&nbsp;--&nbsp;" .
+                    $sub_cat->name . "</option>";
+            }
+        }
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');
 
@@ -59,11 +72,19 @@ class ProductController extends Controller
         // $product->subject = $request->subject;
         // $product->message = $request->message;
         // $product->save();
-        return 121;
+
 
         // return redirect()->route('products.index')
         //                 ->with('success','product created successfully');
+
+
+
+
     }
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -106,9 +127,9 @@ class ProductController extends Controller
             'message' => 'required',
         ]);
 
-
-        // $a['user_id']=auth()->id();
         $a = Product::find($id);
+        $a->update($request->all());
+
         // m,nmmn
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully.');
@@ -120,8 +141,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product  $id)
     {
-        //
+        // $product = Product::find($id);
+        // $product->destroy();
+
+        // return redirect()->route('products.index')
+        //     ->with('success', 'Product deleted successfully');
     }
 }

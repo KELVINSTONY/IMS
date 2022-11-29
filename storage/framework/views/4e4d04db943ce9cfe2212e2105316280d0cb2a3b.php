@@ -1,5 +1,5 @@
 <div class="bg-light">
-    <div class="page-section py-3 mt-md-n5 custom-index">
+    <a class="page-section py-3 mt-md-n5 custom-index">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-4 py-3 py-md-0">
@@ -28,4 +28,5 @@
           </div>
         </div>
       </div>
-    </div> <?php /**PATH C:\xampp\htdocs\IMS\resources\views/layouts/chat.blade.php ENDPATH**/ ?>
+    </div>
+<?php /**PATH C:\xampp\htdocs\IMS\resources\views/layouts/chat.blade.php ENDPATH**/ ?>

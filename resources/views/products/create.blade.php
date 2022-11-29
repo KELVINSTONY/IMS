@@ -63,6 +63,19 @@
 		            <textarea class="ckeditor form-control" style="height:150px" name="message" placeholder="message"></textarea>
 		        </div>
 		    </div>
+            <div class="col-12 py-2 wow fadeInUp">
+		        <div class="form-group">
+		            {{-- <strong>subject:</strong>
+		            <input type="select" name="subject" class="form-control" placeholder="subject"> --}}
+                   <select name="category" id="category" class="form-control">
+                       @php
+                           $categories=\App\Category::all();
+                       @endphp
+                       @foreach ($categories as $category )
+                         <option value = "{{$category->id}}">{{$category->name}}</option>
+                       @endforeach
+                   </select>
+                </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 		            <button type="submit" class="btn btn-primary wow zoomIn">Submit</button>
 		    </div>

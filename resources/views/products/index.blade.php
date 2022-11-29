@@ -8,9 +8,9 @@
                 <h2>Products</h2>
             </div>
             <div class="pull-right">
-                @can('product-create')
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
-                @endcan
+
+                <a class="btn btn-primary ml-lg-3" href="{{ route('products.create') }}"> Create New Product</a>
+
             </div>
         </div>
     </div>
@@ -27,22 +27,24 @@
             <th>No</th>
             <th>Name</th>
             <th>email</th>
-            <th>subject</th>
-            <th width="280px">Action</th>
+            <th>message</th>
+            <th>registra</th>
+            <th width="auto">Action</th>
         </tr>
         <?php
-    $i = 0;
-   ?>
+            $i = 0;
+         ?>
 	    @foreach ($products as $product)
 	    <tr>
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $product->fullName }}</td>
 	        <td>{{ $product->emailAddress }}</td>
-            <td>{{$product->subject}}</td>
+            <td>{{$product->message}}</td>
+            <td>{{$product->email}}</td>
 	        <td>
                 <form action="{{ route('products.destroy',$product->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
-                     <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

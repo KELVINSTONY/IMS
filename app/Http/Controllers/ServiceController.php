@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -13,7 +15,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::OrderBy('name', 'desc')->paginate(10);
+
+        return view('services.index')->with('services', $services);
     }
 
     /**
@@ -23,7 +27,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('services.create');
     }
 
     /**
@@ -34,7 +38,14 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //'user_id', 'name'
+        $a = $request->validate([
+            'name' => 'required|unique:services,name,except,id',
+        ]);
+        $a['user_id'] = auth()->id();
+        Service::create($a);
+        return redirect()->route('services.index')
+            ->with('success', 'service created successfully.');
     }
 
     /**

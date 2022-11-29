@@ -6,7 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 @foreach($users as $mtu)
-                {{$mtu}}
+
+
+
+                {{$mtu->name}}
+
 
                 @endforeach
                 <div class="card-header">Dashboard</div>
